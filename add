@@ -1,0 +1,46 @@
+#!/bin/bash
+# Usage:
+#    add [-h|-e|-v|-g] progname
+# edit and add program to bin/
+# -e: use emacs
+# -v: use vim
+# -g: use gvim (default)
+# -h: print help message
+
+binpath=$(dirname "$0")
+
+function printhelp() {
+cat <<END
+Usage:
+   add [-h|-e|-v|-g] progname
+edit and add program to $binpath
+-e: use emacs
+-v: use vim
+-g: use gvim (default)
+-h: print help message
+END
+}
+
+changemode='test -e $binpath/$prog -a ! -x $binpath/$prog && chmod +x $binpath/$prog'
+vim='vim $binpath/$prog;'"$changemode"
+gvim='gvim $binpath/$prog;'"$changemode"
+emacs='(emacs $binpath/$prog;'"$changemode"')&'
+
+editor=$gvim
+while [ $# -gt 0 ]
+do
+	case $1 in
+		-v)
+			editor=$vim;;
+		-g)
+			editor=$gvim;;
+		-e)
+			editor=$emacs;;
+		-h)
+			printhelp;;
+		*)
+			test -d `dirname $1` || mkdir -p `dirname $1`;
+			prog=$1; eval "$editor";;
+	esac
+	shift
+done
