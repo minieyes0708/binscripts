@@ -1,1 +1,1 @@
-/l/vifm-w64-se-0.11-binary/vifm.exe $*
+winpty /l/vifm-w64-se-0.11-binary/vifm.exe $*
