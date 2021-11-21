@@ -4,9 +4,13 @@ switch ("$env:COMPUTERNAME-$env:USERNAME")
     {
         $path = "D:/minieyes/books"
     }
-    default
+    "MINIEYES-PC2-chenv"
     {
         $path = "J:/minieyes/Dropbox/books"
+    }
+    default
+    {
+        throw No matching settings
     }
 }
 
