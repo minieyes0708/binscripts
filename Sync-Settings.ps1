@@ -1,5 +1,5 @@
 echo '===== Sync .vimrc.d ====='
-cd ~/.vimrc.d
+cd D:/minieyes_chen/software/Neovim/share/nvim/.vimrc.d
 git push
 git pull
 echo '===== Sync .vifm ====='
