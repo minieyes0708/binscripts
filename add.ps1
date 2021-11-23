@@ -1,3 +1,4 @@
+nvr --remote-send "<C-Z>"
 switch ("$env:COMPUTERNAME-$env:USERNAME")
 {
     "MINIEYESNB1-怡哲"
@@ -13,4 +14,3 @@ switch ("$env:COMPUTERNAME-$env:USERNAME")
         throw No matching settings
     }
 }
-nvr --remote-send "<C-Z>"
