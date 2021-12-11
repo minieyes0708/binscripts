@@ -4,6 +4,10 @@ switch ("$env:COMPUTERNAME-$env:USERNAME")
     {
         $path = "D:/minieyes/books"
     }
+    "NVT02863_NB-NVT02863"
+    {
+        $path = "D:/minieyes_chen/books"
+    }
     "MINIEYES-PC2-chenv"
     {
         $path = "J:/minieyes/Dropbox/books"
