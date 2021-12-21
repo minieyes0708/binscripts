@@ -1,1 +1,1 @@
-nvim $args
+py -m tools.mynvr $args
