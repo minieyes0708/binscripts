@@ -11,7 +11,7 @@
     @GOTO :END
 )
 @IF %FULL_NAME% == MINIEYES-PC2-chenv (
-    @nvr --servername %SERVERNAME% $*
+    @nvr --servername %SERVERNAME% %*
     @GOTO :END
 )
 @ECHO No matching settings
