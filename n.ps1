@@ -1,1 +1,1 @@
-py -m tools.mynvr $args
+mynvr $args
