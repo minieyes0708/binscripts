@@ -1,2 +1,1 @@
-nvr --remote-send '<C-Z>'
-nvr -l $args
+py -m miniLibrary.mynvr $args
