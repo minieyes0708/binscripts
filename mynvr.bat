@@ -5,7 +5,7 @@
     @GOTO :END
 )
 @IF %FULL_NAME% == NVT02863_NB-NVT02863 DO @(
-    @py -m tools.mynvr "%*"
+    @py -m miniLibrary.mynvr "%*"
     @GOTO :END
 )
 @IF %FULL_NAME% == MINIEYES-PC2-chenv DO @(
