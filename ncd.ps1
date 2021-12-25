@@ -1,1 +1,1 @@
-nvr --remote-send "<C-Z>:cd $((pwd).path)<CR>"
+mynvr "--remote-send" ":cd $((pwd).path)<CR>"
