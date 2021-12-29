@@ -1,1 +1,1 @@
-py -m miniLibrary.mynvr $args
+mynvr $args
