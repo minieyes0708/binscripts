@@ -5,13 +5,16 @@ $script:targets = @(
     'D:/minieyes_chen/software/bin',
     'D:/minieyes_chen/program/learning/java/Algorithms/',
     'D:/minieyes_chen/software/Neovim/share/nvim/.vimrc.d',
+    ''
 )
 
 $script:pwd = (pwd).Path
 foreach ($target in $script:targets) {
-    echo "===== Sync ${target} ====="
-    cd $target
-    git pull
-    git push
+    if ($target) {
+        echo "===== Sync ${target} ====="
+        cd $target
+        git pull
+        git push
+    }
 }
 cd $script:pwd
