@@ -14,6 +14,10 @@
     @nvr --servername %SERVERNAME% %*
     @GOTO :END
 )
+@IF %FULL_NAME% == LAPTOP-0U8DPE2D-chenv (
+    @nvr --servername %SERVERNAME% %*
+    @GOTO :END
+)
 @ECHO No matching settings
 
 :END
