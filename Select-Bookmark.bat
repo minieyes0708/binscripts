@@ -1,6 +1,6 @@
 @ECHO OFF
 SET target_path=
-@FOR /F "tokens=* USEBACKQ" %%i IN (`type %USERPROFILE%\.vifm\user\bookmarks.txt ^| fzf`) DO set target_path=%%i
+@FOR /F "tokens=* USEBACKQ" %%i IN (`type %BookMarks% ^| fzf`) DO set target_path=%%i
 
 IF "%COMPUTERNAME%-%USERNAME%" == "NVT02863_NB-NVT02863" (
     IF "%target_path%" == "D:/minieyes_chen/program" (

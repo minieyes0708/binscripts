@@ -1,4 +1,4 @@
-$target_path = $(Get-Content ~/.vifm/user/bookmarks.txt | fzf)
+$target_path = $(Get-Content $env:BookMarks | fzf)
 
 switch ("$env:COMPUTERNAME-$env:USERNAME")
 {
