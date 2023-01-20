@@ -1,4 +1,9 @@
 param (
     [string[]] $SearchText
 )
-& "D:\minieyes\software\EverythingPortable\EverythingPortable.exe" -search "$SearchText"
+switch ("$env:COMPUTERNAME-$env:USERNAME") {
+    "MINIEYES-PC2-chenv"
+    {
+        & "L:\EverythingPortable\EverythingPortable.exe" -search "$SearchText"
+    }
+}
