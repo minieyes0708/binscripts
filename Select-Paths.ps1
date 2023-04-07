@@ -1,4 +1,4 @@
-$target = ($env:PATHS -Split ';' | fzf)
+$target = ($global:PATHS | fzf)
 if ($target) {
     Set-Location $target
 }

@@ -1,4 +1,5 @@
-$SEP = ''
-$PWD = (pwd).Path
-if ($env:PATHS) { $SEP = ';' }
-$env:PATHS = "$PATHS$SEP$PWD"
+if ($global:PATHS) {
+    $global:PATHS += (pwd).Path
+} else {
+    $global:PATHS = @((pwd).Path)
+}
