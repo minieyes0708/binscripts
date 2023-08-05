@@ -10,7 +10,7 @@ switch ("$env:COMPUTERNAME-$env:USERNAME")
     }
     "MINIEYES-PC2-chenv"
     {
-        mynvr "L:\bin\$($args[0]).ps1"
+        code -r "D:\software\bin\$($args[0]).ps1"
     }
     default
     {
