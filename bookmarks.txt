@@ -1,0 +1,3 @@
+C:\Users\USER\.vscode\extensions\minieyes.esfile-1.0.0
+C:\Users\USER\OneDrive\文件\dendron\notes
+D:\minieyes\software\nvim-win64\share\nvim\.vimrc.d

@@ -1,0 +1,3 @@
+START "" "C:\Program Files\KMPlayer 64X\KMPlayer64.exe"
+START "" "D:\minieyes\software\EverythingPortable\EverythingPortable.exe"
+START "" "D:\minieyes\software\JDownloader2_20160307_CHT\JDownloader.exe"
