@@ -1,25 +1,4 @@
-switch ("$env:COMPUTERNAME-$env:USERNAME")
-{
-    "MINIEYESNB1-怡哲"
-    {
-        $path = "D:/minieyes/books"
-    }
-    "NVT02863_NB-NVT02863"
-    {
-        $path = "D:/minieyes_chen/books"
-    }
-    "MINIEYES-PC2-chenv"
-    {
-        $path = "J:/minieyes/Dropbox/books"
-    }
-    default
-    {
-        throw No matching settings
-    }
-}
+. "$($env:DotConfigPath)/powershell/settings.ps1"
 
-$option = $(fd --base-directory $path | fzf) -replace '\\','/'
-
-if ($option) {
-    START "$path/$option"
-}
+$option = $(fd --base-directory $BooksFolderPath | fzf) -replace '\\','/'
+if ($option) { Set-Process "$BooksFolderPath/$option" }
