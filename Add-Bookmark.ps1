@@ -1,0 +1,1 @@
+"`n" + (Get-Location).path | Out-File -Append $env:DotConfig\bookmarks.txt
