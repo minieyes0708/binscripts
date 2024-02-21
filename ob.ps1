@@ -1,1 +1,1 @@
-explorer ($(Select-Bookmark) -replace '/','\')
+files ($(Select-Bookmark) -replace '/','\')
