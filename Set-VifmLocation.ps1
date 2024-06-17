@@ -1,0 +1,1 @@
+vifm --server-name vifm --remote +"cd $((Get-Location).path -replace '\\', '/')"
