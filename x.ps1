@@ -15,6 +15,8 @@ $commands = @{
     "svn update"                 = { TortoiseProc.exe -path . -command:update }
     "svn commit"                 = { TortoiseProc.exe -path . -command:commit }
 
+    "add path"                   = { $global:PATHS = @((Get-Location).Path) }
+    "select path"                = { $target = $($global:PATHS | fzf); if ($target) {Set-Location $target} }
     "add bookmark"               = { "`n" + (get-location).path | out-file -append $env:dotconfig\bookmarks.txt }
 }
-$commands[($commands.Keys -join "`n" | fzf)].Invoke()
+Invoke-Command -ScriptBlock $commands[($commands.Keys -join "`n" | fzf)]
