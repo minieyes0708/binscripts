@@ -1,1 +1,0 @@
-files ($(Select-Bookmark) -replace '/','\')

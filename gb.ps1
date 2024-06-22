@@ -1,1 +1,0 @@
-Set-Location $(Select-Bookmark)

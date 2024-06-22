@@ -1,7 +1,6 @@
-param (
-    $subcommand
-)
+$arg0 = $args[0]
 $CmdCommand = { param($arg) if ($arg) {cmd /c $arg} }
+$StartCommand = { param($arg) if($arg) {Start-Process $arg} }
 $SetLocationCommand = { param($arg) if($arg) {Set-Location $arg} }
 $SetClipboardCommand = { param($arg) if($arg) {Set-Clipboard $arg} }
 function Select-UsingFZF {
@@ -31,11 +30,13 @@ $commands = @{
     "add path"                   = { $global:PATHS = @((Get-Location).Path) }
     "select path"                = { Select-UsingFZF $SetLocationCommand $global:PATHS }
 
+    "start file"                 = { Select-UsingFZF $StartCommand (es $arg0) }
     "run program"                = { Select-UsingFZF $CmdCommand (Get-Content $env:DotConfig/programs.txt) }
 
     "add bin script"             = { code -r "$BinScriptPath\$(Read-Host "Script Name: ").ps1" }
 
     "add bookmark"               = { "`n" + (get-location).path | out-file -append $env:dotconfig\bookmarks.txt }
+    "open bookmark"              = { Select-UsingFZF $StartCommand (Get-Content $env:DotConfig/bookmarks.txt) }
     "goto bookmark"              = { Select-UsingFZF $SetLocationCommand (Get-Content $env:DotConfig/bookmarks.txt) }
     "copy bookmark"              = { Select-UsingFZF $SetClipboardCommand (Get-Content $env:DotConfig/bookmarks.txt) }
     "select bookmark"            = { Select-UsingFZF $SetLocationCommand (Get-Content $env:DotConfig/bookmarks.txt) }
@@ -43,8 +44,5 @@ $commands = @{
     "change folder permissions"  = { cmd /c takeown /F %1 /R /D Y; cmd /c icacls %1 /grant:r (Read-Host "User Acount: "):F /T }
 }
 
-if ($subcommand) {
-} else {
-    $key = $commands.Keys -join "`n" | fzf
-    if ($key) { Invoke-Command -ScriptBlock $commands[$key] }
-}
+$key = $commands.Keys -join "`n" | fzf
+if ($key) { Invoke-Command -ScriptBlock $commands[$key] }
