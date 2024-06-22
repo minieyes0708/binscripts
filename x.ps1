@@ -1,3 +1,6 @@
+param (
+    $subcommand
+)
 $CmdCommand = { param($arg) if ($arg) {cmd /c $arg} }
 $SetLocationCommand = { param($arg) if($arg) {Set-Location $arg} }
 $SetClipboardCommand = { param($arg) if($arg) {Set-Clipboard $arg} }
@@ -30,10 +33,16 @@ $commands = @{
 
     "run program"                = { Select-UsingFZF $CmdCommand (Get-Content $env:DotConfig/programs.txt) }
 
+    "add bin script"             = { code -r "$BinScriptPath\$(Read-Host "Script Name: ").ps1" }
+
     "add bookmark"               = { "`n" + (get-location).path | out-file -append $env:dotconfig\bookmarks.txt }
     "goto bookmark"              = { Select-UsingFZF $SetLocationCommand (Get-Content $env:DotConfig/bookmarks.txt) }
     "copy bookmark"              = { Select-UsingFZF $SetClipboardCommand (Get-Content $env:DotConfig/bookmarks.txt) }
     "select bookmark"            = { Select-UsingFZF $SetLocationCommand (Get-Content $env:DotConfig/bookmarks.txt) }
 }
-$key = $commands.Keys -join "`n" | fzf
-if ($key) { Invoke-Command -ScriptBlock $commands[$key] }
+
+if ($subcommand) {
+} else {
+    $key = $commands.Keys -join "`n" | fzf
+    if ($key) { Invoke-Command -ScriptBlock $commands[$key] }
+}
