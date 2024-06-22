@@ -1,5 +1,6 @@
-$SetLocationCommand = { param($path) if($path) {Set-Location $path} }
-$SetClipboardCommand = { param($path) if($path) {Set-Clipboard $path} }
+$CmdCommand = { param($arg) if ($arg) {cmd /c $arg} }
+$SetLocationCommand = { param($arg) if($arg) {Set-Location $arg} }
+$SetClipboardCommand = { param($arg) if($arg) {Set-Clipboard $arg} }
 function Select-UsingFZF {
     param (
         $cmdlet,
@@ -26,6 +27,8 @@ $commands = @{
 
     "add path"                   = { $global:PATHS = @((Get-Location).Path) }
     "select path"                = { Select-UsingFZF $SetLocationCommand $global:PATHS }
+
+    "run program"                = { Select-UsingFZF $CmdCommand (Get-Content $env:DotConfig/programs.txt) }
 
     "add bookmark"               = { "`n" + (get-location).path | out-file -append $env:dotconfig\bookmarks.txt }
     "goto bookmark"              = { Select-UsingFZF $SetLocationCommand (Get-Content $env:DotConfig/bookmarks.txt) }
