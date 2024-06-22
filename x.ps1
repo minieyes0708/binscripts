@@ -32,6 +32,7 @@ $commands = @{
 
     "add path"                   = { $global:PATHS = @((Get-Location).Path) }
     "select path"                = { Select-UsingFZF $SetLocationCommand $global:PATHS }
+    "goto subdirectory"          = { Select-UsingFZF $SetLocationCommand (fd -t d $args) }
 
     "start file"                 = { Select-UsingFZF $StartCommand (es $($args[0])) }
     "run program"                = { Select-UsingFZF $CmdCommand (Get-Content $env:DotConfig/programs.txt) }
@@ -58,10 +59,11 @@ $commands = @{
 }
 
 if ($subcommand) {
-    $arguments = $args[1..($args.Length -1)]
+    $arguments = $args
     switch ($subcommand) {
         "sf"   { Invoke-Command -ScriptBlock $($commands["start file"]) -ArgumentList $arguments }
         "gb"   { Invoke-Command -ScriptBlock $($commands["goto bookmark"]) -ArgumentList $arguments }
+        "cd"   { Invoke-Command -ScriptBlock $($commands["goto subdirectory"]) -ArgumentList $arguments }
         "dict" { Invoke-Command -ScriptBlock $($commands["search dictionary"]) -ArgumentList $arguments }
     }
 }
