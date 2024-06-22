@@ -1,3 +1,12 @@
+$SetLocationCommand = { param($path) if($path) {Set-Location $path} }
+$SetClipboardCommand = { param($path) if($path) {Set-Clipboard $path} }
+function Select-UsingFZF {
+    param (
+        $cmdlet,
+        $content
+    )
+    Invoke-Command -ScriptBlock $cmdlet -ArgumentList ($content | fzf)
+}
 $commands = @{
     "git log"                    = { TortoiseGitProc.exe -path . -command log }
     "git diff"                   = { TortoiseGitProc.exe -path . -command diff }
@@ -16,7 +25,9 @@ $commands = @{
     "svn commit"                 = { TortoiseProc.exe -path . -command:commit }
 
     "add path"                   = { $global:PATHS = @((Get-Location).Path) }
-    "select path"                = { $target = $($global:PATHS | fzf); if ($target) {Set-Location $target} }
+    "select path"                = { Select-UsingFZF $SetLocationCommand $global:PATHS }
+
     "add bookmark"               = { "`n" + (get-location).path | out-file -append $env:dotconfig\bookmarks.txt }
+    "copy bookmark"               = { Select-UsingFZF $SetClipboardCommand (Get-Content $env:DotConfig/bookmarks.txt) }
 }
 Invoke-Command -ScriptBlock $commands[($commands.Keys -join "`n" | fzf)]
