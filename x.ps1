@@ -35,10 +35,12 @@ $commands = @{
 
     "start file"                 = { Select-UsingFZF $StartCommand (es $($args[0])) }
     "run program"                = { Select-UsingFZF $CmdCommand (Get-Content $env:DotConfig/programs.txt) }
+    "edit program"               = { code -r $env:DotConfig/programs.txt }
 
     "add bin script"             = { code -r "$BinScriptPath\$(Read-Host "Script Name: ").ps1" }
 
     "add bookmark"               = { "`n" + (get-location).path | out-file -append $env:dotconfig\bookmarks.txt }
+    "edit bookmark"              = { code -r $env:DotConfig/bookmarks.txt }
     "open bookmark"              = { Select-UsingFZF $StartCommand (Get-Content $env:DotConfig/bookmarks.txt) }
     "goto bookmark"              = { Select-UsingFZF $SetLocationCommand (Get-Content $env:DotConfig/bookmarks.txt) }
     "copy bookmark"              = { Select-UsingFZF $SetClipboardCommand (Get-Content $env:DotConfig/bookmarks.txt) }
