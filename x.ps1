@@ -59,6 +59,7 @@ if ($subcommand) {
     $arguments = $args[1..($args.Length -1)]
     switch ($subcommand) {
         "sf"   { Invoke-Command -ScriptBlock $($commands["start file"]) -ArgumentList $arguments }
+        "gb"   { Invoke-Command -ScriptBlock $($commands["goto bookmark"]) -ArgumentList $arguments }
         "dict" { Invoke-Command -ScriptBlock $($commands["search dictionary"]) -ArgumentList $arguments }
     }
 }
