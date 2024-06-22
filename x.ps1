@@ -35,4 +35,5 @@ $commands = @{
     "copy bookmark"              = { Select-UsingFZF $SetClipboardCommand (Get-Content $env:DotConfig/bookmarks.txt) }
     "select bookmark"            = { Select-UsingFZF $SetLocationCommand (Get-Content $env:DotConfig/bookmarks.txt) }
 }
-Invoke-Command -ScriptBlock $commands[($commands.Keys -join "`n" | fzf)]
+$key = $commands.Keys -join "`n" | fzf
+if ($key) { Invoke-Command -ScriptBlock $commands[$key] }
