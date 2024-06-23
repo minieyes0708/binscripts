@@ -34,7 +34,7 @@ $commands = @{
     "select path"                = { Select-UsingFZF $SetLocationCommand $global:PATHS }
     "goto subdirectory"          = { Select-UsingFZF $SetLocationCommand (fd -t d $args) }
 
-    "start file"                 = { Select-UsingFZF $StartCommand (es $($args[0])) }
+    "start file"                 = { Select-UsingFZF $StartCommand (fd $args) }
     "run program"                = { Select-UsingFZF $CmdCommand (Get-Content $env:DotConfig/programs.txt) }
     "edit program"               = { code -r $env:DotConfig/programs.txt }
 

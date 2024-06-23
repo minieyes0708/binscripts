@@ -1,1 +1,0 @@
-Add-Content -Path ~\.config\programs.txt -Value "START $((Get-Item $args[0]).FullName)"
