@@ -38,7 +38,7 @@ $commands = @{
     "run program"                = { Select-UsingFZF $CmdCommand (Get-Content $env:DotConfig/programs.txt) }
     "edit program"               = { code -r $env:DotConfig/programs.txt }
 
-    "add bin script"             = { code -r "$PSScriptRoot\$(Read-Host "Script Name: ").ps1" }
+    "add bin script"             = { code -r "$PSScriptRoot\$(Read-Host "Script Name").ps1" }
 
     "add bookmark"               = { "`n" + (get-location).path | out-file -append $env:dotconfig\bookmarks.txt }
     "edit bookmark"              = { code -r $env:DotConfig/bookmarks.txt }
@@ -55,7 +55,7 @@ $commands = @{
         $HTML.write([ref]$htmlBody)
         Write-Host $HTML.getElementsByClassName('grp-main')[0].innerText
     }
-    "change folder permissions"  = { cmd /c takeown /F %1 /R /D Y; cmd /c icacls %1 /grant:r (Read-Host "User Acount: "):F /T }
+    "change folder permissions"  = { cmd /c takeown /F %1 /R /D Y; cmd /c icacls %1 /grant:r (Read-Host "User Acount"):F /T }
 }
 
 if ($subcommand) {
