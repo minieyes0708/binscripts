@@ -38,7 +38,7 @@ $commands = @{
     "run program"                = { Select-UsingFZF $CmdCommand (Get-Content $env:DotConfig/programs.txt) }
     "edit program"               = { code -r $env:DotConfig/programs.txt }
 
-    "add bin script"             = { code -r "$BinScriptPath\$(Read-Host "Script Name: ").ps1" }
+    "add bin script"             = { code -r "$PSScriptRoot\$(Read-Host "Script Name: ").ps1" }
 
     "add bookmark"               = { "`n" + (get-location).path | out-file -append $env:dotconfig\bookmarks.txt }
     "edit bookmark"              = { code -r $env:DotConfig/bookmarks.txt }
