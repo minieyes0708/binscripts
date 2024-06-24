@@ -2,17 +2,6 @@ param (
     $subcommand
 )
 
-$CmdCommand = { param($arg) if ($arg) {cmd /c $arg} }
-$StartCommand = { param($arg) if($arg) {Start-Process $arg} }
-$SetLocationCommand = { param($arg) if($arg) {Set-Location $arg} }
-$SetClipboardCommand = { param($arg) if($arg) {Set-Clipboard $arg} }
-function Select-UsingFZF {
-    param (
-        $cmdlet,
-        $content
-    )
-    Invoke-Command -ScriptBlock $cmdlet -ArgumentList ($content | fzf)
-}
 $commands = @{
     "git log"                    = { TortoiseGitProc.exe -path . -command log }
     "git diff"                   = { TortoiseGitProc.exe -path . -command diff }
@@ -31,21 +20,21 @@ $commands = @{
     "svn commit"                 = { TortoiseProc.exe -path . -command:commit }
 
     "add path"                   = { $global:PATHS = @((Get-Location).Path) }
-    "select path"                = { Select-UsingFZF $SetLocationCommand $global:PATHS }
-    "goto subdirectory"          = { Select-UsingFZF $SetLocationCommand (fd -t d $args) }
+    "select path"                = { $global:PATHS | fzf | ForEach-Object { Set-Location $_ } }
+    "goto subdirectory"          = { fd -t d -d 3 $args | fzf | ForEach-Object { Set-Location $_ } }
 
-    "start file"                 = { Select-UsingFZF $StartCommand (es $($args[0])) }
-    "run program"                = { Select-UsingFZF $CmdCommand (Get-Content $env:DotConfig/programs.txt) }
+    "start file"                 = { es $args | fzf | ForEach-Object { Start-Process $_ } }
+    "run program"                = { Get-Content $env:DotConfig/programs.txt | fzf | ForEach-Object { Start-Process $_ } }
     "edit program"               = { code -r $env:DotConfig/programs.txt }
 
     "add bin script"             = { code -r "$PSScriptRoot\$(Read-Host "Script Name").ps1" }
 
     "add bookmark"               = { "`n" + (get-location).path | out-file -append $env:dotconfig\bookmarks.txt }
     "edit bookmark"              = { code -r $env:DotConfig/bookmarks.txt }
-    "open bookmark"              = { Select-UsingFZF $StartCommand (Get-Content $env:DotConfig/bookmarks.txt) }
-    "goto bookmark"              = { Select-UsingFZF $SetLocationCommand (Get-Content $env:DotConfig/bookmarks.txt) }
-    "copy bookmark"              = { Select-UsingFZF $SetClipboardCommand (Get-Content $env:DotConfig/bookmarks.txt) }
-    "select bookmark"            = { Select-UsingFZF $SetLocationCommand (Get-Content $env:DotConfig/bookmarks.txt) }
+    "open bookmark"              = { Get-Content $env:DotConfig/bookmarks.txt | fzf | ForEach-Object { Start-Process $_ } }
+    "goto bookmark"              = { Get-Content $env:DotConfig/bookmarks.txt | fzf | ForEach-Object { Set-Location $_ } }
+    "copy bookmark"              = { Get-Content $env:DotConfig/bookmarks.txt | fzf | ForEach-Object { Set-Clipboard $_ } }
+    "select bookmark"            = { Get-Content $env:DotConfig/bookmarks.txt | fzf | ForEach-Object { Set-Location $_ } }
 
     "search dictionary"          = {
         $url = "https://tw.dictionary.search.yahoo.com/search?p=$(Read-Host "Search Text")"
