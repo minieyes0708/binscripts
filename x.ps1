@@ -48,7 +48,7 @@ $commands = @{
     "select bookmark"            = { Select-UsingFZF $SetLocationCommand (Get-Content $env:DotConfig/bookmarks.txt) }
 
     "search dictionary"          = {
-        $url = "https://tw.dictionary.search.yahoo.com/search?p=$($args[0])"
+        $url = "https://tw.dictionary.search.yahoo.com/search?p=$(Read-Host "Search Text")"
         $request = Invoke-WebRequest -Uri $url -UseBasicParsing
         $HTML = New-Object -Com 'HTMLFile'
         [string]$htmlBody = $request.Content
