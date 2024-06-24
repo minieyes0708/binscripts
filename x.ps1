@@ -50,6 +50,7 @@ $commands = @{
 if ($subcommand) {
     $arguments = $args
     switch ($subcommand) {
+        "p"    { Invoke-Command -ScriptBlock $($commands["run program"]) -ArgumentList $arguments }
         "sf"   { Invoke-Command -ScriptBlock $($commands["start file"]) -ArgumentList $arguments }
         "gb"   { Invoke-Command -ScriptBlock $($commands["goto bookmark"]) -ArgumentList $arguments }
         "cd"   { Invoke-Command -ScriptBlock $($commands["goto subdirectory"]) -ArgumentList $arguments }
