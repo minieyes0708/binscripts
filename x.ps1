@@ -24,7 +24,7 @@ $commands = @{
     "goto subdirectory"          = { fd -t d -d 3 $args | fzf | ForEach-Object { Set-Location $_ } }
 
     "start file"                 = { es $args | fzf | ForEach-Object { Start-Process $_ } }
-    "run program"                = { Get-Content $env:DotConfig/programs.txt | fzf | ForEach-Object { Start-Process cmd -ArgumentList @('/c', $_)  } }
+    "run program"                = { Get-Content $env:DotConfig/programs.txt | fzf | ForEach-Object { Invoke-Expression $_ } }
     "edit program"               = { code -r $env:DotConfig/programs.txt }
 
     "add bin script"             = { code -r "$PSScriptRoot\$(Read-Host "Script Name").ps1" }
