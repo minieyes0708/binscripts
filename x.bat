@@ -1,1 +1,1 @@
-pwsh -Command x
+pwsh -Command x "%*"
