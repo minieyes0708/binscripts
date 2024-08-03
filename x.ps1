@@ -31,14 +31,14 @@ $commands = @{
     "svn commit"                 = { TortoiseProc.exe -path . -command:commit }
 
     "add path"                   = { $global:PATHS = @((Get-Location).Path) }
-    "select path"                = { Select-UsingFZF $SetLocationCommand $global:PATHS }
+    "select path"                = { $global:PATHS | fzf | % { Set-Location $_ } }
     "goto subdirectory"          = { Select-UsingFZF $SetLocationCommand (fd -t d $args) }
 
     "start file"                 = { Select-UsingFZF $StartCommand (fd $args) }
     "run program"                = { Select-UsingFZF $CmdCommand (Get-Content $env:DotConfig/programs.txt) }
     "edit program"               = { code -r $env:DotConfig/programs.txt }
 
-    "add bin script"             = { code -r "$BinScriptPath\$(Read-Host "Script Name: ").ps1" }
+    "add bin script"             = { code -r "$PSScriptRoot\$(Read-Host "Script Name: ").ps1" }
 
     "add bookmark"               = { "`n" + (get-location).path | out-file -append $env:dotconfig\bookmarks.txt }
     "edit bookmark"              = { code -r $env:DotConfig/bookmarks.txt }
@@ -61,6 +61,7 @@ $commands = @{
 if ($subcommand) {
     $arguments = $args
     switch ($subcommand) {
+        "p"    { Invoke-Command -ScriptBlock $($commands["run program"]) -ArgumentList $arguments }
         "sf"   { Invoke-Command -ScriptBlock $($commands["start file"]) -ArgumentList $arguments }
         "gb"   { Invoke-Command -ScriptBlock $($commands["goto bookmark"]) -ArgumentList $arguments }
         "cd"   { Invoke-Command -ScriptBlock $($commands["goto subdirectory"]) -ArgumentList $arguments }
