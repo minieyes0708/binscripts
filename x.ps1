@@ -27,6 +27,7 @@ $commands = @{
     "run program"                = { Get-Content $env:DotConfig/programs.txt | fzf | ForEach-Object { Invoke-Expression $_ } }
     "edit program"               = { code -r $env:DotConfig/programs.txt }
 
+    "esfile"                     = { code -r $(es $args | fzf)}
     "add bin script"             = { code -r "$PSScriptRoot\$(Read-Host "Script Name").ps1" }
 
     "add bookmark"               = { "`n" + (get-location).path | out-file -append $env:dotconfig\bookmarks.txt }
@@ -50,11 +51,12 @@ $commands = @{
 if ($subcommand) {
     $arguments = $args
     switch ($subcommand) {
-        "p"    { Invoke-Command -ScriptBlock $($commands["run program"]) -ArgumentList $arguments }
-        "sf"   { Invoke-Command -ScriptBlock $($commands["start file"]) -ArgumentList $arguments }
-        "gb"   { Invoke-Command -ScriptBlock $($commands["goto bookmark"]) -ArgumentList $arguments }
-        "cd"   { Invoke-Command -ScriptBlock $($commands["goto subdirectory"]) -ArgumentList $arguments }
-        "dict" { Invoke-Command -ScriptBlock $($commands["search dictionary"]) -ArgumentList $arguments }
+        "p"      { Invoke-Command -ScriptBlock $($commands["run program"]) -ArgumentList $arguments }
+        "sf"     { Invoke-Command -ScriptBlock $($commands["start file"]) -ArgumentList $arguments }
+        "gb"     { Invoke-Command -ScriptBlock $($commands["goto bookmark"]) -ArgumentList $arguments }
+        "cd"     { Invoke-Command -ScriptBlock $($commands["goto subdirectory"]) -ArgumentList $arguments }
+        "dict"   { Invoke-Command -ScriptBlock $($commands["search dictionary"]) -ArgumentList $arguments }
+        "esfile" { Invoke-Command -ScriptBlock $($commands["esfile"]) -ArgumentList $arguments }
     }
 }
 else {
