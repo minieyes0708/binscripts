@@ -46,6 +46,7 @@ $commands = @{
         Write-Host $HTML.getElementsByClassName('grp-main')[0].innerText
     }
     "change folder permissions"  = { cmd /c takeown /F %1 /R /D Y; cmd /c icacls %1 /grant:r (Read-Host "User Acount"):F /T }
+    "J drive link to ds923"      = { New-PSDrive -Name J -PSProvider FileSystem -Root \\DS923plus\home -Credential (Get-Credential) -Persist }
 }
 
 if ($subcommand) {
