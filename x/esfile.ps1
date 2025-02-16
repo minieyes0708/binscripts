@@ -1,4 +1,1 @@
-@{
-    "description" = "esfile"
-    "scriptblock" = { mynvr $(es $args | fzf)}
-}
+mynvr $(es $args | fzf)
