@@ -1,3 +1,4 @@
+@ECHO OFF
 @FOR /F "delims=" %%a IN ('py -m tools.mynvr') DO (
     @SET server=%%a
 )
