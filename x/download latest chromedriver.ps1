@@ -1,6 +1,6 @@
 {
     #Import-Module -Name Selenium
-    #$driver = Start-SeChrome -BinaryPath "C:\Program Files\Google\Chrome\Application\chrome.exe" -WebDriverDirectory $env:BinFolder
+    #$driver = Start-SeChrome -BinaryPath "C:\Program Files\Google\Chrome\Application\chrome.exe" -WebDriverDirectory $env:BinScriptPath
     #Enter-SeUrl -Driver $driver -Url 'https://googlechromelabs.github.io/chrome-for-testing/'
     #$stable_section = Find-SeElement -Driver $driver -XPath "//section[@id='stable']//tr"
     #$win32_chromedriver_row = $stable_section | Where-Object {
@@ -11,8 +11,8 @@
     #Stop-SeDriver -Driver $driver
 
     $download_url = "https://storage.googleapis.comchrome-for-testing-public/$(Read-Host -Prompt Version)/win32/chromedriver-win32.zip"
-    Invoke-WebRequest -Uri $download_url -OutFile "$($env:BinFolder)\chromedriver.zip"
-    Push-Location $env:BinFolder
+    Invoke-WebRequest -Uri $download_url -OutFile "$($env:BinScriptPath)\chromedriver.zip"
+    Push-Location $env:BinScriptPath
     & 7z x chromedriver.zip
     Copy-Item -Force chromedriver-win32\chromedriver.exe .
     Remove-Item -Recurse -Force chromedriver-win32, chromedriver.zip
