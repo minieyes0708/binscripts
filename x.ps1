@@ -1,3 +1,7 @@
+$ErrorActionPreference = "Stop"
+
 Push-Location (Join-Path $PSScriptRoot x)
-&".\$(fzf)"
+$filename = Resolve-Path $(fzf)
 Pop-Location
+
+& "$filename"
