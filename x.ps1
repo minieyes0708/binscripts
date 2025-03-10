@@ -1,7 +1,6 @@
 $ErrorActionPreference = "Stop"
 
-Push-Location (Join-Path $PSScriptRoot x)
-$filename = Resolve-Path $(fzf)
-Pop-Location
+$xpath = Join-Path $env:BinScriptPath 'x'
+$filename = Join-Path $xpath $((Get-ChildItem $xpath).Name | fzf)
 
 & "$filename"
